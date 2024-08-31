@@ -22,6 +22,7 @@ import AddEmp from './Components/AddEmp';
 import Employee from './Components/Employee';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from './Pages/ProtectedRoute';
 
 
 function App() {
@@ -29,14 +30,16 @@ function App() {
   const[showAdminNav,setNavAdmin]=useState(false)
   const location =useLocation();
   const path=location.pathname;
+  const isLogin=true;
+  const userType="user"
   useEffect(()=>{
-    if(path.startsWith("/Dashboard")){
+    if(path.startsWith("/Dashboard")&& userType!=="admin"){
       setNav(true)
     }
     else{
       setNav(false)
     }
-    if(path.startsWith("/admin")){
+    if(path.startsWith("/admin") && userType==="admin"){
       setNavAdmin(true)
     }
     else{
@@ -70,10 +73,24 @@ transition={Bounce}
       showNav && <Nav2/>
     }
   <Routes>
-    <Route path='/' element={<Login/>}/>
-    <Route path='Dashboard/*' element={<Dashboard/>}>
+    {
+      !isLogin && (
+        <Route path='/login' element={<Login/>}/>
+      )
+    }
+
+    {/* protected Routes */}
+    <>
+    <Route element={<ProtectedRoute isLogin={isLogin}/>}>
+    <Route path='/login' element={<Navigate to="/"/>}/>
+    {
+      userType !=="admin" ?(
+      <>
+      <Route path='/login' element={<Navigate to="/"/>}/>
+      <Route path='/' element={<Navigate to="/Dashboard/*"/>}/>
+      <Route path='Dashboard/*' element={<Dashboard/>}>
     <Route path='Request' element={<Request/>}>
-    <Route path='' element={<Navigate to="leave" replace />} />
+    <Route path='' element={<Navigate to="leave" />} />
     <Route path='leave' element={<Leave/>}/>
     <Route path='queries' element={<Queries/>}/>
     </Route>
@@ -82,7 +99,12 @@ transition={Bounce}
     <Route path='Profile' element={<Profile/>}/>
     <Route path='' element={<Dash/>}/>
     </Route>
-    <Route path='admin' element={<Admin/>}>
+      </>
+      ):(
+        <>
+        <Route path='/login' element={<Navigate to="/" />}/>
+        <Route path='/' element={<Navigate to="/admin"/>}/>
+        <Route path='admin' element={<Admin/>}>
     <Route path='' element={<AdminDash/>}/>
     <Route path='employees' element={<Employees/>}>
     <Route path="add" element={<AddEmp/>}></Route>
@@ -91,6 +113,18 @@ transition={Bounce}
     </Route>
     </Route>
     </Route>
+        </>
+
+      )
+
+    }
+    
+    
+
+    </Route>
+    </>
+    
+    
   </Routes>
   </div>
   </div>
