@@ -30,8 +30,8 @@ function App() {
   const[showAdminNav,setNavAdmin]=useState(false)
   const location =useLocation();
   const path=location.pathname;
-  const isLogin=true;
-  const userType="user"
+  const isLogin=false;
+  const userType="admin"
   useEffect(()=>{
     if(path.startsWith("/Dashboard")&& userType!=="admin"){
       setNav(true)
@@ -75,7 +75,11 @@ transition={Bounce}
   <Routes>
     {
       !isLogin && (
+       <>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/Dashboard/*' element={<Navigate to="/login"/>}/>
+        <Route path='/admin' element={<Navigate to="/login"/>}/>
+       </>
       )
     }
 
@@ -87,7 +91,8 @@ transition={Bounce}
       userType !=="admin" ?(
       <>
       <Route path='/login' element={<Navigate to="/"/>}/>
-      <Route path='/' element={<Navigate to="/Dashboard/*"/>}/>
+      <Route path='/admin' element={<Navigate to="/"/>}/>
+      <Route path='/' element={<Navigate to="/Dashboard"/>}/>
       <Route path='Dashboard/*' element={<Dashboard/>}>
     <Route path='Request' element={<Request/>}>
     <Route path='' element={<Navigate to="leave" />} />
@@ -102,6 +107,7 @@ transition={Bounce}
       </>
       ):(
         <>
+        <Route path='/Dashboard/*' element={<Navigate to="/"/>}/>
         <Route path='/login' element={<Navigate to="/" />}/>
         <Route path='/' element={<Navigate to="/admin"/>}/>
         <Route path='admin' element={<Admin/>}>
