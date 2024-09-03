@@ -1,10 +1,24 @@
 import React from 'react';
 import logo from '../Assests/Logo_W.png';
 import { Link, useLocation } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { logout } from '../Store';
+axios.defaults.withCredentials=true
 function Nav() {
   const location = useLocation();
-
+  const dispatch =useDispatch()
+  const handleLogout=async()=>{
+      await axios.get("http://localhost:3001/auth/logout",{
+        withCredentials:true
+      }).then((res)=>{
+        if(res.status===200){
+          toast.success(res.data.message)
+          dispatch(logout())
+        }
+      })
+  }
   return (
     <>
       <div className=' w-[18%] h-screen space-y-4 flex flex-col justify-between bg-[var(--body)] fixed'>
@@ -33,7 +47,7 @@ function Nav() {
           </Link>
         </div>
        </div>
-        <button className=' border-t-2 py-7 text-2xl text-white text-start pl-7 flex items-center font-bold gap-3'>Logout <i className="fa-solid fa-right-from-bracket text-white"></i></button>
+        <button onClick={handleLogout} className=' border-t-2 py-7 text-2xl text-white text-start pl-7 flex items-center font-bold gap-3'>Logout <i className="fa-solid fa-right-from-bracket text-white"></i></button>
       </div>
     </>
   );

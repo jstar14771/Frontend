@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import logo from "../Assests/Logo_W.png"
 import { useLocation, useNavigate} from 'react-router-dom'
+import axios from "axios"
+import { useDispatch } from 'react-redux'
+import { login } from '../Store'
+import { toast } from 'react-toastify'
+axios.defaults.withCredentials=true
 function Login() {
     const[lvalues,setValues]=useState({empid:"",password:""})
     const[errors,setErrors]=useState({})
     const navigate=useNavigate()
+    const dispatch=useDispatch()
     
 
     const validate=()=>{
@@ -19,9 +25,18 @@ function Login() {
         const re=validate();
 
         if(Object.keys(re).length===0){
-            alert("successss")
-            navigate("/Dashboard",{replace:true})
-            setValues({empid:"",password:""})
+            axios.post("http://localhost:3001/auth/login",lvalues).then((res)=>{
+                if(res.status===200){
+                    toast.success(res.data.message)
+                    dispatch(login({isLogin:true,role:res.data.user.role}))
+                    navigate("/Dashboard",{replace:true})
+                    setValues({empid:"",password:""})
+                }
+              
+            }).catch((err)=>{
+                toast(err.message)
+            })
+            
         }
         else{
             setErrors(re);

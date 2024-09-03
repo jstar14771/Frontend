@@ -12,7 +12,7 @@ function EmpList() {
       ])
     }
     fetch()
-  },[employeesList])
+  },[employeesList.length])
   return (
     <>
     <div className=' w-full border-r-2 over-for(let first in second) {third} w-80  h-full'>

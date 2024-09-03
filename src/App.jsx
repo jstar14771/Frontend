@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
@@ -23,6 +23,9 @@ import Employee from './Components/Employee';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Pages/ProtectedRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { login, logout } from './Store';
 
 
 function App() {
@@ -30,8 +33,26 @@ function App() {
   const[showAdminNav,setNavAdmin]=useState(false)
   const location =useLocation();
   const path=location.pathname;
-  const isLogin=false;
-  const userType="admin"
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const isLogin=useSelector((state)=>state.auth.isLogin);
+  const userType=useSelector((state)=>state.auth.role)
+  console.log(isLogin+" "+userType)
+
+  useEffect(()=>{
+    axios.get("http://localhost:3001/auth/user").then((res)=>{
+      if(res.status===200){
+        dispatch(login({isLogin:true,role:res.data.role}))
+      }
+      if(res.status===401){
+        dispatch(logout())
+      }
+    }).catch(error => {
+      console.error('Error checking user authentication', error);
+      dispatch(logout());
+      navigate('/login');
+  });
+  },[dispatch,navigate])
   useEffect(()=>{
     if(path.startsWith("/Dashboard")&& userType!=="admin"){
       setNav(true)
@@ -45,7 +66,7 @@ function App() {
     else{
       setNavAdmin(false)
     }
-  },[path])
+  },[path,userType])
   return (
    <>
    <ToastContainer
@@ -120,7 +141,6 @@ transition={Bounce}
     </Route>
     </Route>
         </>
-
       )
 
     }

@@ -51,6 +51,7 @@ function Employee() {
           </div>
          
         </div>
+        <button onClick={()=>deleteEmp(id)}>Delete</button>
        </div>
     </>
 
