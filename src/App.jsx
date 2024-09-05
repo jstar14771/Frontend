@@ -25,7 +25,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from './Pages/ProtectedRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { login, logout } from './Store';
+import { login, logout, setUser } from './Store';
+import RqShow from './Components/Admin/RqShow';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
     axios.get("http://localhost:3001/auth/user").then((res)=>{
       if(res.status===200){
         dispatch(login({isLogin:true,role:res.data.role}))
+        dispatch(setUser({user:res.data}))
       }
       if(res.status===401){
         dispatch(logout())
@@ -132,7 +134,11 @@ transition={Bounce}
         <Route path='/login' element={<Navigate to="/" />}/>
         <Route path='/' element={<Navigate to="/admin"/>}/>
         <Route path='admin' element={<Admin/>}>
-    <Route path='' element={<AdminDash/>}/>
+    <Route path='' element={<AdminDash/>}>
+    <Route path="posts" element={<RqShow/>}>
+    <Route path=":id" element={<RqShow/>}/>
+    </Route>
+    </Route>
     <Route path='employees' element={<Employees/>}>
     <Route path="add" element={<AddEmp/>}></Route>
     <Route path='employee' element={<Employee/>}>

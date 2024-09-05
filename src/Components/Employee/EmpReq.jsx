@@ -1,12 +1,15 @@
 import React from 'react'
 import Req from "../Req"
-function EmpReq() {
+function EmpReq({data}) {
   return (
     <>
     <div> 
-        <Req status={"Accept"}/>
-        <Req status={"Reject"}/>
-        <Req status={"Reject"}/>
+    {data && data.length > 0 ? (
+        data.map((item, i) => <Req key={i} status={item} />)
+      ) : (
+        <p className='text-center mt-5'>No Data</p>
+      )}
+        
     </div>
     
     </>

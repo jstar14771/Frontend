@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ProfileForm } from '../Forms'
 
-function EmpDetails() {
+function EmpDetails({data}) {
 
     const[ProfileEditOpen,setProfileOpen]=useState(false)
   return (
@@ -15,10 +15,10 @@ function EmpDetails() {
                 <p>Role</p>
             </div>
             <div>
-                <p>: DeadPool</p>
-                <p>: jstar1477@gmail.com</p>
-                <p>: 998877445566</p>
-                <p>: Full Stack Developer</p>
+                <p>: {data.name}</p>
+                <p>: {data.email}</p>
+                <p>: {data.mobile}</p>
+                <p>: {data.role}</p>
             </div>
            </div>
             <div className='flex justify-end pr-16'>

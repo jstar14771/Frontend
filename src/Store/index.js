@@ -18,11 +18,23 @@ import {configureStore, createSlice}  from "@reduxjs/toolkit"
 
  export const {login,logout}=authSlice.actions;
 
+const UserSlice=createSlice({
+    name:"user",
+    initialState:{user:[]},
+    reducers:{
+        setUser:(state,action)=>{
+            const{user}=action.payload
+            state.user=user
+        }
+    }
+})
 
+export const{setUser}=UserSlice.actions
 
 export const store=configureStore({
     reducer:{
-        auth:authSlice.reducer
+        auth:authSlice.reducer,
+        user:UserSlice.reducer
     }
  })
 

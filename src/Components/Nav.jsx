@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../Assests/Logo_W.png';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { logout } from '../Store';
@@ -9,6 +9,7 @@ axios.defaults.withCredentials=true
 function Nav() {
   const location = useLocation();
   const dispatch =useDispatch()
+  
   const handleLogout=async()=>{
       await axios.get("http://localhost:3001/auth/logout",{
         withCredentials:true

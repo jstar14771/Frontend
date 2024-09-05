@@ -13,6 +13,7 @@ function EmpList() {
     }
     fetch()
   },[employeesList.length])
+ 
   return (
     <>
     <div className=' w-full border-r-2 over-for(let first in second) {third} w-80  h-full'>
@@ -28,7 +29,7 @@ function EmpList() {
         <div className=' h-[77vh] overflow-y-auto px-2 py-5 flex flex-col gap-3'>
             {
               employeesList.map((item,i)=>{
-                return <Emp key={i} name={item.name} id={item.empid}/>
+                return <Emp key={i} name={item.name} id={item._id} empid={item.empid}/>
               })
             }
         </div>

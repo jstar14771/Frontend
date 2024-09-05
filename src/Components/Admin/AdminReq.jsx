@@ -1,4 +1,5 @@
 import React from 'react'
+import EmpR from './EmpR'
 
 function AdminReq() {
   return (
@@ -6,11 +7,8 @@ function AdminReq() {
         <div className='w-full'>
             <h4>Requests</h4>
             <div className='flex'>
-                <div className='w-1/3'>
-f
-                </div>
-                <div className='w-2/3'>
-f
+                <div className='w-full'>
+                   <EmpR/>
                 </div>
             </div>
         </div>

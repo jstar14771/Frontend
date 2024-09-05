@@ -1,10 +1,16 @@
 import React, { useState } from 'react'
 import Letter from './Letter';
-
+import { DeleteConfirm } from './Forms';
+import axios from "axios"
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+axios.defaults.withCredentials=true
 function Leave() {
     const[values,setValues]=useState({reason:"",leave:"",rejoin:"",subject:""});
     const[error,setError]=useState({})
     const[pre,setPre]=useState(false)
+    const[confirm2,setConfirm]=useState(false)
+    const user=useSelector((state)=>state.user.user)
     const validate=()=>{
         const err={}
         if(!values.reason) err.reason="Enter Reason"
@@ -29,7 +35,19 @@ function Leave() {
     const handleDel=()=>{
         setPre(false)
         setValues({reason:"",subject:"",rejoin:"",leave:""})
+        setConfirm(true)
     }
+    const handleApi=async()=>{
+        await axios.post("http://localhost:3001/post/createreq",values,{
+            withCredentials:true
+        }).then((res)=>{
+            
+            toast.success(res.data.message)
+            handleDel()
+        }).catch((err)=>{toast(err.message)})
+        setConfirm(false)
+    }
+    console.log("confirm"+confirm2)
   return (
     <>
     <div className='px-8 mt-3'>
@@ -53,15 +71,22 @@ function Leave() {
                     <label htmlFor="" className=' font-[500]'>Re-Join</label>
                     <input type="date" value={values.rejoin}  onChange={(e)=>setValues({...values,rejoin:e.target.value})} className={`border-2 py-3 px-5 ${error.rejoin && 'border-red-700'} ${values.rejoin && 'border-green-400'}`}/>
                 </div>
-                <button onClick={handleData} className=' self-end bg-[var(--body)] text-white py-2 px-5'>Preview</button>
+                {
+                    pre?<div className='flex gap-4'><button onClick={()=>{setConfirm((p)=>!p)}} className=' self-end bg-[var(--body)] text-white py-2 px-5'>Send</button>
+                <button onClick={()=>setPre((p)=>!p)} className=' self-end bg-[var(--body)] text-white py-2 px-5 bg-red-400'>Clear</button></div>:
+                <button onClick={handleData} className=' self-end  text-white py-2 bg-[var(--body)] px-5'>Preview</button>
+
+                }
+
             </form>
            </div>
             <div className=' w-[60%] '>
                 {
-                    pre ? <Letter sub={values.subject} reason={values.reason} leave={values.leave} re={values.rejoin} del={handleDel}/> : <p className=' w-full flex justify-center items-center '>No Priview</p>
+                    pre ? <Letter sub={values.subject} reason={values.reason} leave={values.leave} re={values.rejoin} del={handleDel} name={user.name} empid={user.empid}/> : <p className=' w-full flex justify-center items-center '>No Priview</p>
                 }
             </div>
         </div>
+        {confirm2 && <DeleteConfirm name={"Confirm To Send"} Open={setConfirm} apiCall={handleApi}/>}
     </div>
     </>
   )

@@ -1,7 +1,8 @@
 import React from 'react'
 import PayData from '../Components/PayData'
-
+import {useSelector} from "react-redux"
 function Payslips() {
+  const user=useSelector((state)=>state.user.user)
   return (
     <>
       <div className='w-full px-8 py-10'>
@@ -11,10 +12,11 @@ function Payslips() {
             <th className='w-[50%] border'>Month</th>
             <th className='w-[40%] border'>Action</th>
           </tr>
-          <PayData num={1} month="Aug 2024"/>
-          <PayData num={2} month="Aug 2024"/>
-          <PayData num={3} month="Aug 2024"/>
-          <PayData num={4} month="Aug 2024"/>
+          {
+            user.payslip && user.payslip ? user.payslip.map((item,i)=>{
+              return <PayData key={i} data={item} i={i+1}/>
+            }): <tr><td colSpan={3}>Nodata</td></tr>
+          }
         
         </table>
       </div>

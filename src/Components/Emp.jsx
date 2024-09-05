@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-function Emp({name,id}) {
+function Emp({name,id,empid}) {
   const location=useLocation()
   return (
     <>
@@ -12,7 +12,7 @@ function Emp({name,id}) {
         </div>
         <div>
           <h1 className=' text-sm font-[600]'>{name}</h1>
-          <p className=' font-[500] '>{id}</p>
+          <p className=' font-[500] '>{empid}</p>
         </div>
       </div>
       </Link>

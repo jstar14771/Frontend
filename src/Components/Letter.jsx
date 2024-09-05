@@ -9,20 +9,20 @@ function Letter(props) {
             <p>Ascus Tech</p>
         </div>
         <div>
-            <p>Subject: <span className=' font-[700]'>{props.sub}</span></p>
+            <p>Subject: <span className=' font-[700]'>{props.sub ? props.sub :props.data.subject}</span></p>
         </div>
         <div>
             <p>Respected Sir/Madam</p>
         </div>
         <div>
-            <p className=' indent-16'>I am writing to request leave for <span className=' font-[700]'>{props.reason}</span>. I will be unable to come to the office from <span className=' font-[700]'>{props.leave}</span> to <span className=' font-[700]'>{props.re}</span>. Kindly grant me leave for the mentioned period. I will make sure to finish my pending work before leaving and will resume work as soon as I come back.</p>
+            <p className=' indent-16'>I am writing to request leave for <span className=' font-[700]'>{props.reason ? props.reason : props.data.reason}</span>. I will be unable to come to the office from <span className=' font-[700]'>{props.leave ? props.leave : props.data.fromDate}</span> to <span className=' font-[700]'>{props.re ? props.re : props.data.toDate}</span>. Kindly grant me leave for the mentioned period. I will make sure to finish my pending work before leaving and will resume work as soon as I come back.</p>
         </div>
         <div>
             <p>Thank You!</p>
         </div>
         <div className=' font-[500]'>
-            <p>Name</p>
-            <p>EmpID</p>
+            <p>{props.name ? props.name : props.data.employee.name}</p>
+            <p>{props.empid ? props.empid : props.data.employee.empid}</p>
         </div>
         {
             props.confirm &&
