@@ -28,7 +28,7 @@ import axios from 'axios';
 import { login, logout, setUser } from './Store';
 import RqShow from './Components/Admin/RqShow';
 
-
+axios.defaults.withCredentials=true
 function App() {
   const[showNav,setNav]=useState(false)
   const[showAdminNav,setNavAdmin]=useState(false)
@@ -41,7 +41,9 @@ function App() {
   console.log(isLogin+" "+userType)
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/auth/user").then((res)=>{
+    axios.get("http://localhost:3001/auth/user",{
+      withCredentials:true
+    }).then((res)=>{
       if(res.status===200){
         dispatch(login({isLogin:true,role:res.data.role}))
         dispatch(setUser({user:res.data}))
