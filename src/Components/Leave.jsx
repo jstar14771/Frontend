@@ -38,7 +38,7 @@ function Leave() {
         setConfirm(true)
     }
     const handleApi=async()=>{
-        await axios.post("http://localhost:3001/post/createreq",values,{
+        await axios.post("https://backend-vev7.onrender.com/post/createreq",values,{
             withCredentials:true
         }).then((res)=>{
             

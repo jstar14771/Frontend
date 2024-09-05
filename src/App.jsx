@@ -41,7 +41,7 @@ function App() {
   console.log(isLogin+" "+userType)
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/auth/user",{
+    axios.get("https://backend-vev7.onrender.com/auth/user",{
       withCredentials:true
     }).then((res)=>{
       if(res.status===200){

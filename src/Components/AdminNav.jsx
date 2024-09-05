@@ -13,7 +13,7 @@ function AdminNav() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        await axios.get("http://localhost:3001/auth/logout", {
+        await axios.get("https://backend-vev7.onrender.com/auth/logout", {
             withCredentials: true
         }).then((res) => {
             if (res.status === 200) {

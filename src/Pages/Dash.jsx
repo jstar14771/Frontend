@@ -34,7 +34,7 @@ function Dash() {
   useEffect(()=>{
     const getReq=async()=>{
       try {
-        await axios.get("http://localhost:3001/post/emp/posts",{
+        await axios.get("https://backend-vev7.onrender.com/post/emp/posts",{
           withCredentials:true
         }).then((res)=>{
           setReqList(res.data)

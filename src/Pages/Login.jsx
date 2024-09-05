@@ -25,7 +25,7 @@ function Login() {
         const re=validate();
 
         if(Object.keys(re).length===0){
-            axios.post("http://localhost:3001/auth/login",lvalues).then((res)=>{
+            axios.post("https://backend-vev7.onrender.com/auth/login",lvalues).then((res)=>{
                 if(res.status===200){
                     toast.success(res.data.message)
                     dispatch(login({isLogin:true,role:res.data.user.role}))

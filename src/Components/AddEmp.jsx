@@ -23,7 +23,7 @@ function AddEmp() {
     const handleSubmit =async(e) => {
         e.preventDefault();
       try{
-        const res=await  axios.post("http://localhost:3001/api/addemployee",empDetails).then((res)=>{
+        const res=await  axios.post("https://backend-vev7.onrender.com/api/addemployee",empDetails).then((res)=>{
             if(res.status===200){
                 toast(res.data.message)
                 setEmp({

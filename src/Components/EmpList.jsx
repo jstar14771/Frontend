@@ -7,7 +7,7 @@ function EmpList() {
   const[employeesList,setEmpList]=useState([])
   useEffect(()=>{
     const fetch= async()=>{
-      await axios.get("http://localhost:3001/api/employees").then((res)=>[
+      await axios.get("https://backend-vev7.onrender.com/api/employees").then((res)=>[
         setEmpList(res.data)
       ])
     }

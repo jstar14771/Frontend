@@ -21,7 +21,7 @@ function Employee() {
     useEffect(() => {
       const fetchEmployeeData = async () => {
         try {
-          const res = await axios.get(`http://localhost:3001/api/getEmployee/${id}`);
+          const res = await axios.get(`https://backend-vev7.onrender.com/api/getEmployee/${id}`);
           setEmployeeData(res.data);
         } catch (error) {
           toast.error('Error fetching employee data');
@@ -35,7 +35,7 @@ function Employee() {
       return <div>Loading employee data...</div>;
     }
     const deleteEmp=async(id)=>{
-        await axios.delete(`http://localhost:3001/api/delete/${id}`).then((res)=>{
+        await axios.delete(`https://backend-vev7.onrender.com/api/delete/${id}`).then((res)=>{
             toast.success(res.data.message)
         })
         navigate("/admin/employees",{replace:true})

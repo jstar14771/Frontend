@@ -13,7 +13,7 @@ function AdminReqList() {
   useEffect(() => {
     const getAllPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/post/allposts");
+        const res = await axios.get("https://backend-vev7.onrender.com/post/allposts");
         if (res.status === 200) {
           setAllPosts(res.data);
         }

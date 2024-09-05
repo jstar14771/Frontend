@@ -26,7 +26,7 @@ function EmpOffer({id,data}) {
             const url=await getDownloadURL(storageRef);
             if(url){
                 try{
-                    await axios.post(`http://localhost:3001/api/uploadOffer/${id}`,{url}).then((res)=>{
+                    await axios.post(`https://backend-vev7.onrender.com/api/uploadOffer/${id}`,{url}).then((res)=>{
                         if(res.status===200){
                             toast.success(res.data.message)
                         }

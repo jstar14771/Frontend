@@ -14,7 +14,7 @@ function RqShow() {
     console.log(open,newStatus)
     useEffect(()=>{
         const getPost=async()=>{
-            await axios.get(`http://localhost:3001/post/posts/${id}`).then((res)=>{
+            await axios.get(`https://backend-vev7.onrender.com/post/posts/${id}`).then((res)=>{
                 setPost(res.data)
                 setLoading(false)
             })

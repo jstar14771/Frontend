@@ -21,7 +21,7 @@ export const PaysLipsForm=(props)=>{
           console.log(MonthYear,url)
           if(url){
               try{
-                  await axios.post(`http://localhost:3001/api/uploadPayslip/${props.id}`,{url,MonthYear}).then((res)=>{
+                  await axios.post(`https://backend-vev7.onrender.com/api/uploadPayslip/${props.id}`,{url,MonthYear}).then((res)=>{
                       if(res.status===200){
                           toast.success(res.data.message)
                           props.Open(false)
