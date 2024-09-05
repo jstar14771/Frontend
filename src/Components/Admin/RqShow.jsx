@@ -23,7 +23,7 @@ function RqShow() {
     },[id])
     const updateStatus = async (newStatus) => {
         try {
-          await axios.put(`http://localhost:3001/post/updateStatus/${id}`, { status: newStatus }).then((res)=>{
+          await axios.put(`https://backend-vev7.onrender.com/post/updateStatus/${id}`, { status: newStatus }).then((res)=>{
             toast.success(res.data.message)
            
             setOpen(false)

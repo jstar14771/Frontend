@@ -10,6 +10,7 @@ function Leave() {
     const[error,setError]=useState({})
     const[pre,setPre]=useState(false)
     const[confirm2,setConfirm]=useState(false)
+    const[loading,Setloading]=useState(false)
     const user=useSelector((state)=>state.user.user)
     const validate=()=>{
         const err={}
@@ -38,6 +39,7 @@ function Leave() {
         setConfirm(true)
     }
     const handleApi=async()=>{
+        Setloading(true)
         await axios.post("https://backend-vev7.onrender.com/post/createreq",values,{
             withCredentials:true
         }).then((res)=>{
@@ -46,8 +48,8 @@ function Leave() {
             handleDel()
         }).catch((err)=>{toast(err.message)})
         setConfirm(false)
+        Setloading(false)
     }
-    console.log("confirm"+confirm2)
   return (
     <>
     <div className='px-8 mt-3'>
@@ -86,7 +88,7 @@ function Leave() {
                 }
             </div>
         </div>
-        {confirm2 && <DeleteConfirm name={"Confirm To Send"} Open={setConfirm} apiCall={handleApi}/>}
+        {confirm2 && <DeleteConfirm name={"Confirm To Send"} Open={setConfirm} apiCall={handleApi} loading={loading}/>}
     </div>
     </>
   )

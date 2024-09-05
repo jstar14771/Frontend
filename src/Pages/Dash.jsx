@@ -76,7 +76,18 @@ function Dash() {
         <div className='border-2 px-5 py-2 rounded-md h-36'>
           <h1 className='text-center font-[600] text-3xl py-2 mb-2'>Offer letter</h1>
           <div className='flex justify-center gap-5'>
-            <a href={user.offerletter && user.offerletter[0].Offerurl} target='_blank' className=' text-white bg-[var(--body)] w-[150px] flex justify-center items-center h-12 font-[600] rounded-lg hover:bg-[var(--btn2)] '><i className="fa-solid fa-eye"></i> View</a>
+          {user.offerletter && user.offerletter.length > 0 ? (
+              <a
+                href={user.offerletter[0].Offerurl}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-white bg-[var(--body)] w-[150px] flex justify-center items-center h-12 font-[600] rounded-lg hover:bg-[var(--btn2)]'
+              >
+                <i className="fa-solid fa-eye"></i> View
+              </a>
+            ) : (
+              <p className='text-center text-xl'>No Offer Letter Available</p>
+            )}
           </div>
         </div>
         <Holi/>

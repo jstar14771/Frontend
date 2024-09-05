@@ -131,7 +131,7 @@ export const DeleteConfirm=(props)=>{
             <form action="" className='w-full px-7' onSubmit={(e)=>{e.preventDefault()}}>
                <div className=' mt-6 flex flex-col gap-4'>
                 <div className="flex justify-around text-white">
-                <button onClick={props.apiCall}  type='submit' className="bg-[var(--btn2)] w-[50%] py-2 hover:border-[1px] hover:border-[var(--btn2)] hover:bg-white hover:text-[var(--btn2)]">Confirm</button>
+                <button onClick={props.apiCall}  type='submit' className="bg-[var(--btn2)] w-[50%] py-2 hover:border-[1px] hover:border-[var(--btn2)] hover:bg-white hover:text-[var(--btn2)]">{props.loading ? "Sending..." : "Confirm"}</button>
                 <button onClick={()=>{props.Open((prev)=>!prev)}} type='submit' className="bg-red-400 w-[50%] py-2 hover:border-[1px] hover:border-red-400 hover:bg-white hover:text-red-400 ">Cancel</button>
                 </div>
                </div>
