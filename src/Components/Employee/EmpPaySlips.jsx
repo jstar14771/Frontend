@@ -24,7 +24,7 @@ function EmpPaySlips({id,data}) {
                 </tr>
                 {
                   data && data ? data.map((item,i)=>{
-                    return <EmpPayData key={i} data={item} i={i}/>
+                    return <EmpPayData key={i} data={item} i={i+1}/>
                   }): <tr><td>Nodata</td></tr>
                 }
             </table>
